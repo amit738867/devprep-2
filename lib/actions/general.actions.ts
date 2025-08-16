@@ -6,6 +6,43 @@ import { google } from "@ai-sdk/google";
 import { db } from "@/firebase/admin";
 import { feedbackSchema } from "@/constants";
 
+interface CreateFeedbackParams {
+  interviewId: string;
+  userId: string;
+  transcript: Array<{ role: string; content: string }>;
+  feedbackId?: string;
+}
+
+interface Interview {
+  id: string;
+  userId: string;
+  finalized: boolean;
+  createdAt: string;
+  [key: string]: any;
+}
+
+interface Feedback {
+  id: string;
+  interviewId: string;
+  userId: string;
+  totalScore: number;
+  categoryScores: Record<string, number>;
+  strengths: string[];
+  areasForImprovement: string[];
+  finalAssessment: string;
+  createdAt: string;
+}
+
+interface GetFeedbackByInterviewIdParams {
+  interviewId: string;
+  userId: string;
+}
+
+interface GetLatestInterviewsParams {
+  userId: string;
+  limit?: number;
+}
+
 export async function createFeedback(params: CreateFeedbackParams) {
   const { interviewId, userId, transcript, feedbackId } = params;
 
@@ -93,6 +130,10 @@ export async function getLatestInterviews(
 ): Promise<Interview[] | null> {
   const { userId, limit = 20 } = params;
 
+  if (!userId) {
+    return null;
+  }
+
   const interviews = await db
     .collection("interviews")
     .orderBy("createdAt", "desc")
@@ -110,6 +151,10 @@ export async function getLatestInterviews(
 export async function getInterviewsByUserId(
   userId: string
 ): Promise<Interview[] | null> {
+  if (!userId) {
+    return null;
+  }
+
   const interviews = await db
     .collection("interviews")
     .where("userId", "==", userId)
