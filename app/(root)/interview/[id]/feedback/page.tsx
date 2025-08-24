@@ -6,7 +6,7 @@ import { getRandomInterviewCover } from "@/lib/utils";
 
 import {
   getFeedbackByInterviewId,
-  getInterviewById,
+  getInterviewsById,
 } from "@/lib/actions/general.actions";
 import { getCurrentUser } from "@/lib/actions/auth.actions";
 import DisplayTechIcons from "@/components/DisplayTechIcons";
@@ -16,7 +16,7 @@ const InterviewDetails = async ({ params }: RouteParams) => {
 
   const user = await getCurrentUser();
 
-  const interview = await getInterviewById(id);
+  const interview = await getInterviewsById(id);
   if (!interview) redirect("/");
 
   const feedback = await getFeedbackByInterviewId({
