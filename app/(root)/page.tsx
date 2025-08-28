@@ -4,11 +4,11 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import InterviewCard from "@/components/InterviewCard";
 
-import { getCurrentUser } from "@/lib/actions/auth.actions";
+import { getCurrentUser } from "@/lib/actions/auth.action";
 import {
   getInterviewsByUserId,
   getLatestInterviews,
-} from "@/lib/actions/general.actions";
+} from "@/lib/actions/general.action";
 
 async function Home() {
   const user = await getCurrentUser();

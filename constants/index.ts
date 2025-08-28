@@ -97,8 +97,7 @@ export const mappings = {
   "aws amplify": "amplify",
 };
 
-//type has changed to any to avoid type errors
-export const interviewer: any = {
+export const interviewer: CreateAssistantDTO = {
   name: "Interviewer",
   firstMessage:
     "Hello! Thank you for taking the time to speak with me today. I'm excited to learn more about you and your experience.",
@@ -157,37 +156,35 @@ End the conversation on a polite and positive note.
 };
 
 export const feedbackSchema = z.object({
-  totalScore: z.number(),
-  categoryScores: z.tuple([
-    z.object({
-      name: z.literal("Communication Skills"),
-      score: z.number(),
-      comment: z.string(),
-    }),
-    z.object({
-      name: z.literal("Technical Knowledge"),
-      score: z.number(),
-      comment: z.string(),
-    }),
-    z.object({
-      name: z.literal("Problem Solving"),
-      score: z.number(),
-      comment: z.string(),
-    }),
-    z.object({
-      name: z.literal("Cultural Fit"),
-      score: z.number(),
-      comment: z.string(),
-    }),
-    z.object({
-      name: z.literal("Confidence and Clarity"),
-      score: z.number(),
-      comment: z.string(),
-    }),
-  ]),
-  strengths: z.array(z.string()),
-  areasForImprovement: z.array(z.string()),
-  finalAssessment: z.string(),
+  totalScore: z.number().describe(
+    "The overall score for the interview from 0 to 100."
+  ),
+  categoryScores: z.object({
+    communicationSkills: z.number().describe(
+      "Score for Communication Skills from 0 to 100."
+    ),
+    technicalKnowledge: z.number().describe(
+      "Score for Technical Knowledge from 0 to 100."
+    ),
+    problemSolving: z.number().describe(
+      "Score for Problem-Solving from 0 to 100."
+    ),
+    culturalFit: z.number().describe(
+      "Score for Cultural Fit from 0 to 100."
+    ),
+    confidenceAndClarity: z.number().describe(
+      "Score for Confidence & Clarity from 0 to 100."
+    ),
+  }),
+  strengths: z.array(z.string()).describe(
+    "A list of the candidate's key strengths."
+  ),
+  areasForImprovement: z.array(z.string()).describe(
+    "A list of areas where the candidate can improve."
+  ),
+  finalAssessment: z.string().describe(
+    "A final, overall assessment of the candidate's performance."
+  ),
 });
 
 export const interviewCovers = [
