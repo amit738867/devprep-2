@@ -19,7 +19,7 @@ const FormField = <T extends FieldValues>({control, name, label, placeholder, ty
       return <FormItem>
       <FormLabel className='!text-light-100 !font-normal ml-4'>{label}</FormLabel>
       <FormControl >
-        <Input className='!bg-dark-200 !rounded-full !min-h-12 !px-5 placeholder:!text-light-100' type={type} placeholder={placeholder} {...field} />
+        <Input className='!bg-dark-200 !rounded-full !min-h-12 !px-5 placeholder:!text-light-100 pt-1' type={type} placeholder={placeholder} {...field} />
       </FormControl>
       <FormMessage />
     </FormItem>

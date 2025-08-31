@@ -89,7 +89,7 @@ const Layout =  ({ children }: { children: ReactNode }) => {
   return (
     <div className="min-h-screen relative bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 overflow-hidden">
       {/* Aurora Background - Fixed and covering entire viewport */}
-      <div className="fixed inset-0 z-0 h-[150%]">
+      <div className="fixed inset-0 z-0 h-[200%]">
         <Aurora
           colorStops={["#3A29FF", "#FF94B4", "#FF3232"]}
           blend={0.4}
@@ -168,9 +168,26 @@ const Layout =  ({ children }: { children: ReactNode }) => {
                         Settings
                       </DropdownItem>
                       <div className="border-t border-gray-200/50 dark:border-gray-700/50 my-1"></div>
-                      <DropdownItem href="/sign-out" icon={<LogOut className="h-4 w-4" />}>
+                        <button
+                        onClick={async () => {
+                          try {
+                          // Clear any auth tokens or session data
+                          localStorage.removeItem('token'); // if you use token-based auth
+                          sessionStorage.clear();
+                          
+                          // Redirect to sign-in page
+                          window.location.href = '/sign-in';
+                          } catch (error) {
+                          console.error('Logout error:', error);
+                          }
+                        }}
+                        className="flex items-center w-full px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors duration-200"
+                        >
+                        <span className="mr-3 text-gray-500 dark:text-gray-400">
+                          <LogOut className="h-4 w-4" />
+                        </span>
                         Log out
-                      </DropdownItem>
+                        </button>
                     </div>
                   </div>
                 </div>

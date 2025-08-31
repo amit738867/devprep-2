@@ -68,7 +68,7 @@ async function Home() {
       {/* Stats Section */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6 my-12">
         <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-100 dark:border-gray-700">
-          <div className="text-3xl font-bold text-indigo-600 dark:text-indigo-400 mb-2">100+</div>
+          <div className="text-4xl font-bold text-indigo-600 dark:text-indigo-400 mb-2">∞</div>
           <div className="text-gray-600 dark:text-gray-400">Interview Questions</div>
         </div>
         <div className="bg-white dark:bg-gray-800 p-6 rounded-xl shadow-md border border-gray-100 dark:border-gray-700">
