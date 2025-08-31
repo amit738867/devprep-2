@@ -18,33 +18,20 @@ import {
 import Aurora from '../../components/Aurora';
 
 import { getCurrentUser } from "@/lib/actions/auth.action";
+import { isAuthenticated } from "@/lib/actions/auth.action"
 
 const Layout =  ({ children }: { children: ReactNode }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    // Check authentication status on the client side
     const checkAuth = async () => {
-      try {
-        // Replace this with your actual authentication check
-        // For example: const authStatus = await isAuthenticated();
-        const authStatus = true; // Placeholder - replace with actual auth check
-        
-        if (!authStatus) {
-          redirect("/sign-in");
-        } else {
-          setIsAuthenticated(true);
-        }
-      } catch (error) {
-        console.error("Authentication error:", error);
+      const isUserAuthenticated = await isAuthenticated();
+      if (!isUserAuthenticated) {
         redirect("/sign-in");
-      } finally {
-        setIsLoading(false);
       }
+      setIsLoading(false);
     };
-
     checkAuth();
   }, []);
 
@@ -82,9 +69,7 @@ const Layout =  ({ children }: { children: ReactNode }) => {
     );
   }
 
-  if (!isAuthenticated) {
-    return null; // Will redirect in the useEffect
-  }
+
 
   return (
     <div className="min-h-screen relative bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 overflow-hidden">
