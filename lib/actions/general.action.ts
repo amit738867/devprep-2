@@ -6,6 +6,8 @@ import { google } from "@ai-sdk/google";
 import { generateObject } from "ai";
 
 export async function getInterviewsByUserId(userId: string): Promise<Interview[] | null> {
+    if (!userId) return [];
+    
     const interviews = await db
       .collection('interviews')
       .where('userId', '==', userId)
@@ -22,13 +24,17 @@ export async function getLatestInterviews(params: GetLatestInterviewsParams): Pr
 
     const { userId, limit = 20 } = params;
 
-    const interviews = await db
+    const query = db
       .collection('interviews')
       .orderBy('createdAt', 'desc')
-      .where('finalized', '==', true)
-      .where('userId', '!=', userId)
-      .limit(limit)
-      .get();
+      .where('finalized', '==', true);
+      
+    // Only add userId filter if it exists
+    const finalQuery = userId 
+      ? query.where('userId', '!=', userId)
+      : query;
+      
+    const interviews = await finalQuery.limit(limit).get();
 
     return interviews.docs.map((doc) => ({
         id: doc.id,

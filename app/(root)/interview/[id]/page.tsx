@@ -26,7 +26,7 @@ const InterviewDetails = async ({ params }: RouteParams) => {
 
   return (
     <>
-      <div className="flex flex-row gap-4 justify-between">
+      {/* <div className="flex flex-row gap-4 justify-between">
         <div className="flex flex-row gap-4 items-center max-sm:flex-col">
           <div className="flex flex-row gap-4 items-center">
             <Image
@@ -45,7 +45,7 @@ const InterviewDetails = async ({ params }: RouteParams) => {
         <p className="bg-dark-200 px-4 py-2 rounded-lg h-fit">
           {interview.type}
         </p>
-      </div>
+      </div> */}
 
       <Agent
         userName={user?.name!}
